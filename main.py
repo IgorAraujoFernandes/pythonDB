@@ -1,6 +1,6 @@
 import sqlite3
-# from tkinter import *
-# from tkinter import ttk
+from tkinter import *
+from tkinter import ttk
 
 banco = sqlite3.connect('banco.db')
 
@@ -14,16 +14,28 @@ cursor = banco.cursor()
 
 # banco.commit()
 
-cursor.execute('ALTER TABLE produtos ADD valorFixo int')
+# cursor.execute('ALTER TABLE produtos ADD valorFixo int')
 
-cursor.execute('UPDATE produtos SET valorFixo = 5 WHERE nomeProduto = "leiteIntegral" OR "leiteDesnatado"')
-cursor.execute('UPDATE produtos SET valorFixo = 3 WHERE nomeProduto = "Biscoito"')
-cursor.execute('UPDATE produtos SET valorFixo = 10 WHERE nomeProduto = "Cerveja"')
-cursor.execute('UPDATE produtos SET valorFIXO = 50 WHERE nomePRoduto = "Picanha"')
+# cursor.execute('UPDATE produtos SET valorFixo = 5 WHERE nomeProduto = "leiteIntegral"')
+# cursor.execute('UPDATE produtos SET valorFixo = 5 WHERE nomeProduto = "leiteDesnatado"')
+# banco.commit()
+# cursor.execute('UPDATE produtos SET valorFixo = 3 WHERE nomeProduto = "Biscoito"')
+# cursor.execute('UPDATE produtos SET valorFixo = 10 WHERE nomeProduto = "Cerveja"')
+#cursor.execute('UPDATE produtos SET valorFixo = 50 WHERE nomePRoduto = "Picanha"') 
 
+cursor.execute('SELECT valorFixo FROM produtos WHERE nomeProduto = "Picanha"') 
+resultado = cursor.fetchone()
+valor1 = int(resultado[0])
 
-banco.commit()
+cursor.execute('SELECT valorFixo FROM produtos WHERE nomeProduto = "Cerveja"')
+resultado = cursor.fetchone()
+valor2 = int(resultado[0])
 
-cursor.execute('SELECT * FROM produtos')
+print ("o valor total e: ")
+print (valor1 + valor2)
 
-print(cursor.fetchall())
+# print (preco1, preco2)
+
+# cursor.execute('SELECT * FROM produtos')
+
+# print(cursor.fetchall())
