@@ -6,6 +6,8 @@ banco = sqlite3.connect('banco.db')
 
 cursor = banco.cursor()
 
+processo = int(input("Qual e o processo a ser feito ?\n [1] - Somar compras\n "))
+
 # processo = int(input('O que deseja fazer ?\n [1] '))
 
 # cursor.execute('CREATE TABLE produtos(ID int NOT NULL PRIMARY KEY, nomeProduto varchar(50) NOT NULL, categoria varchar(50) NOT NULL, refrigerado bit NOT NULL, alcoolico bit NOT NULL )')
@@ -22,6 +24,9 @@ cursor = banco.cursor()
 # cursor.execute('UPDATE produtos SET valorFixo = 3 WHERE nomeProduto = "Biscoito"')
 # cursor.execute('UPDATE produtos SET valorFixo = 10 WHERE nomeProduto = "Cerveja"')
 #cursor.execute('UPDATE produtos SET valorFixo = 50 WHERE nomePRoduto = "Picanha"') 
+
+if processo == 1:
+    print("teste")
 
 cursor.execute('SELECT valorFixo FROM produtos WHERE nomeProduto = "Picanha"') 
 resultado = cursor.fetchone()
