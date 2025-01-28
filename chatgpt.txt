@@ -1,0 +1,61 @@
+Parece que você está tendo problemas com o seu código em Python, especificamente com a questão do token que não está sendo reconhecido. Vou te ajudar a entender o que está acontecendo!
+
+Aqui estão alguns problemas e sugestões de correção:
+
+1. Problema no loop while i < limite:
+No seu loop while, o incremento do contador i está errado. Você está escrevendo i+1, mas o correto seria i += 1. Isso porque i + 1 não altera o valor de i, enquanto i += 1 faz a atualização corretamente.
+
+2. Problema na manipulação do valor de valorProduto
+Você está tentando acessar um índice da variável valorProduto no somarCompras, mas a forma como está usando a variável está incorreta. Inicialmente, você está criando valorProduto = [limite], que não é o comportamento esperado. Você quer uma lista de valores dos produtos.
+
+3. Uso de f-string no SQL
+Para incluir variáveis nas queries SQL de forma segura, é melhor usar placeholders, como ?, para evitar problemas de injeção de SQL. O seu código atual usa interpolação direta, o que pode ser arriscado.
+
+4. Escopo da variável somaTotal
+O seu código está tratando a variável somaTotal de forma global e dentro da função, mas não está utilizando global dentro da função somarCompras. Isso faz com que a modificação de somaTotal dentro da função não afete a variável global. Você precisa incluir a palavra-chave global somaTotal dentro da função para garantir que a variável global seja atualizada.
+
+Aqui está o código com as correções sugeridas:
+
+python
+Copiar
+import sqlite3
+from tkinter import *
+from tkinter import ttk
+
+banco = sqlite3.connect('banco.db')
+cursor = banco.cursor()
+
+somaTotal = 0
+processo = int(input("Qual é o processo a ser feito ?\n[1] - Somar compras\n "))
+
+def somarCompras(produto):
+    global somaTotal  # Aqui você diz que vai modificar a variável global
+    cursor.execute('SELECT valorFixo FROM produtos WHERE ID = ?', (produto,))
+    valorProduto = cursor.fetchone()  # Fetch a única linha
+    if valorProduto:
+        valorSoma = int(valorProduto[0])
+        somaTotal += valorSoma
+
+if processo == 1:
+    cursor.execute('SELECT id FROM produtos ORDER BY id DESC LIMIT 1')
+    maximo = cursor.fetchone()
+    if maximo:
+        limite = int(maximo[0])
+        i = 1  # Iniciar o contador com 1 (pois os IDs começam do 1)
+    
+        while i <= limite:
+            try:
+                produto = int(input(f"Digite o ID do produto ({i}/{limite}): "))
+                somarCompras(produto)
+                i += 1  # Incrementa o contador corretamente
+            except ValueError:
+                print("Por favor, insira um número válido.")
+    
+    print(f"Soma total das compras: {somaTotal}")
+O que foi alterado?
+global somaTotal foi adicionado dentro da função somarCompras para garantir que a variável global seja modificada corretamente.
+Correção no incremento de i: Usei i += 1 no lugar de i+1 para incrementar o valor de i corretamente.
+SQL com placeholders (?): Alterei a query para usar o placeholder seguro ? em vez de interpolar diretamente a variável na string SQL.
+Verificação de valorProduto: Agora há uma verificação para garantir que valorProduto tenha um valor antes de tentar usá-lo.
+Tratamento de erro para entrada de ID: Adicionei um try-except para garantir que o valor inserido pelo usuário seja um número inteiro válido.
+Agora, o código deve funcionar corretamente! Se você tiver mais dúvidas ou se algo não funcionar como esperado, me avise!
