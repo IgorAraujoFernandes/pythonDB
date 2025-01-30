@@ -6,14 +6,17 @@ banco = sqlite3.connect('banco.db')
 
 cursor = banco.cursor()
 
-somaTotal = 0
-processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n "))
+global somaTotal
+somaTotal = 0 
 
-def somarCompras(produto):
-    cursor.execute('SELECT valorFixo FROM produtos WHERE ID = {produto}')
-    valorProduto [i]= cursor.fetchone()
+processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n"))
+
+def somarCompras(produto,):
+    global valorSoma
+    cursor.execute('SELECT valorFixo FROM produtos WHERE ID = ?', (produto, ))
+    valorProduto = cursor.fetchone()
     valorSoma = int(valorProduto[0])
-    somaTotal = somaTotal + valorSoma
+    
 
 
 if processo == 1:
@@ -24,9 +27,10 @@ if processo == 1:
     i = 0
     
     while i < limite:
-        produto = int(input("Digite o ID do produto"))
+        produto = int(input("Digite o ID do produto\n"))
         somarCompras(produto)
         i+=1 
+        
 print(somaTotal)        
 
 
