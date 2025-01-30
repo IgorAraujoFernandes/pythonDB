@@ -1,6 +1,4 @@
 import sqlite3
-from tkinter import *
-from tkinter import ttk
 
 banco = sqlite3.connect('banco.db')
 
@@ -27,10 +25,15 @@ if processo == 1:
     i = 0
     
     while i < limite:
+      try:
         produto = int(input("Digite o ID do produto\n"))
         somarCompras(produto)
-        i+=1 
+        somaTotal += valorSoma
+        i += 1
+      except produto > limite or produto < limite :
+        print("Por favor, insira um número válido para o ID do produto.")
+
         
-print(somaTotal)        
+print(f"O valor total da compra é de: R${somaTotal}")        
 
 
