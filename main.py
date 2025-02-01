@@ -21,7 +21,7 @@ def somarCompras(produto, ):
     valorProduto = cursor.fetchone()
     valorSoma = int(valorProduto[0])
   
-    
+  
 def inserirProduto():
     nome = input("Digite o nome do produto novo:\n")
     
@@ -56,8 +56,7 @@ def consultarPreco():
 processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n")) 
 
 if processo == 1:
-  
-        valorProduto = [limite]
+        
         i = 0
         
         while i < limite:
