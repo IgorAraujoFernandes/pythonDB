@@ -13,14 +13,14 @@ maximo = cursor.fetchone()
 limite = int(maximo[0])
 
 
-def somarCompras(produto,):
+def somarCompras(produto, ):
    
+
+    global valorSoma
     cursor.execute('SELECT valorFixo FROM produtos WHERE ID = ?', (produto, ))
     valorProduto = cursor.fetchone()
     valorSoma = int(valorProduto[0])
-    
-    return valorSoma
-    
+  
     
 def inserirProduto():
     nome = input("Digite o nome do produto novo:\n")
