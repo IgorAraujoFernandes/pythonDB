@@ -52,8 +52,27 @@ def consultarPreco():
   valorFixo = cursor.fetchone()
   preço = int(valorFixo[0]) 
   
+def atualizar():
+  idProduto = int(input("Digite o ID do produto a ser atualizado:\n"))
+  print(f"o valor é {idProduto}")
   
-processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n")) 
+  campoAtualizar = (input("\nQual campo você quer atualizar ?\n[1] - Nome [2] - Categoria [3] - Refrigerado [4] - Alcoolico [5] - Quantidade [6] - Valor\n"))
+  #print(f"Campo:", (campoAtualizar, ))
+  campoAtualizarINT = int(campoAtualizar[0]) 
+  
+  atualizacao = input("Qual atualização você deseja fazer?\n")
+  
+  if campoAtualizarINT == 1:
+    
+     #print("teste1")
+     cursor.execute(f"UDPATE produtos SET nomeProduto = ? WHERE ID = ?", (atualizacao, idProduto, ))
+     testeNome = print(cursor.fetchall())   
+     #print("teste")
+     testeNome
+
+
+# processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n[4] - Atualizar campo\n")) 
+processo = 4
 
 if processo == 1:
   
@@ -78,3 +97,5 @@ if processo == 3:
   consultarPreco() 
   print(f"O valor desse produto é: R${preço}")
 
+if processo == 4:
+  atualizar()
