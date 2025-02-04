@@ -101,9 +101,20 @@ def atualizar():
   cursor.execute("SELECT * FROM produtos WHERE ID = ?", (idProduto, ))
   print(cursor.fetchone())      
 
+def excluir():
 
-processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n[4] - Atualizar campo\n")) 
+  IDproduto = input("Digite o ID do produto a ser excluido:\n")
+  try:
+    IDproduto = int(IDproduto)
+  except ValueError:
+    print("Valor inválido\n")
+  cursor.execute("DELETE FROM produtos WHERE ID = ?", (IDproduto, ))
+  banco.commit()
 
+
+processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n[4] - Atualizar campo\n[5] - Excluir campo\n")) 
+
+processo == 5
 
 if processo == 1:
         valorProduto = [limite]
@@ -137,3 +148,6 @@ if processo == 3:
 
 if processo == 4:
   atualizar()
+
+if processo == 5:
+    excluir() 
