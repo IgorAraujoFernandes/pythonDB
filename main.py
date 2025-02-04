@@ -114,8 +114,6 @@ def excluir():
 
 processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n[4] - Atualizar campo\n[5] - Excluir campo\n")) 
 
-processo == 5
-
 if processo == 1:
         valorProduto = [limite]
         i = 0
