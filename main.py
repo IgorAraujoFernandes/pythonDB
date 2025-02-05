@@ -1,11 +1,9 @@
 import sqlite3
 
 banco = sqlite3.connect('banco.db')
-
 cursor = banco.cursor()
 
 global somaTotal, maximo, limite, preço
-
 somaTotal = 0
 preço = 0 
 cursor.execute('SELECT id FROM produtos ORDER BY id DESC LIMIT 1')
@@ -20,8 +18,12 @@ def somarCompras(produto, ):
     cursor.execute('SELECT valorFixo FROM produtos WHERE ID = ?', (produto, ))
     valorProduto = cursor.fetchone()
     valorSoma = int(valorProduto[0])
+<<<<<<< HEAD
   
   
+=======
+    
+>>>>>>> fb2bf7f14882c5e340a7598a23685f9fe15130a8
 def inserirProduto():
     nome = input("Digite o nome do produto novo:\n")
     
@@ -52,23 +54,97 @@ def consultarPreco():
   valorFixo = cursor.fetchone()
   preço = int(valorFixo[0]) 
   
+def atualizar():
+  idProduto = int(input("Digite o ID do produto a ser atualizado:\n"))
+  print(f"o valor é {idProduto}")
   
-processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n")) 
+  campoAtualizar = (input("\nQual campo você quer atualizar ?\n[1] - Nome [2] - Categoria [3] - Refrigerado [4] - Alcoolico [5] - Quantidade [6] - Valor\n"))
+  #print(f"Campo:", (campoAtualizar, ))
+  campoAtualizarINT = int(campoAtualizar) 
+  
+  if campoAtualizarINT == 3 or campoAtualizarINT == 4:
+    binario = int(input("Escolha o status:\n[1] - Refrigerado    [2] - Não refrigerado\n"))
+    if binario == 2:
+      binario = 0
+  else:
+     atualizacao = input("Qual atualização você deseja fazer?\n")
+     if campoAtualizarINT == 5 or campoAtualizarINT == 6:
+      atualizacaoint= int(atualizacao)
+  
+  if campoAtualizarINT == 1:
+    
+     cursor.execute("UPDATE produtos SET nomeProduto = ? WHERE ID = ?", (atualizacao, idProduto, ))
+     banco.commit()
+     cursor.execute("SELECT * FROM produtos WHERE ID = ?", (idProduto, ))
+     print(cursor.fetchone())
+   
+  
+  if campoAtualizarINT == 2:
+    
+     cursor.execute("UPDATE produtos SET categoria = ? WHERE ID = ?", (atualizacao, idProduto, ))
+     banco.commit()
+     cursor.execute("SELECT * FROM produtos WHERE ID = ?", (idProduto, ))
+     print(cursor.fetchone())
+   
+  if campoAtualizarINT == 3 or campoAtualizarINT == 4:
+    
+    if campoAtualizarINT == 3:
+     cursor.execute("UPDATE produtos SET refrigerado = ? WHERE ID = ?", (binario, idProduto, ))
+    else:
+      cursor.execute("UPDATE produtos SET alcoolico = ? WHERE ID = ?", (binario, idProduto, ))
+  banco.commit()
+  cursor.execute("SELECT * FROM produtos WHERE ID = ?", (idProduto, ))
+  print(cursor.fetchone())
+    
+  if campoAtualizarINT == 5 or campoAtualizarINT == 6:
+        
+        if campoAtualizarINT == 5:
+          cursor.execute("UPDATE produtos SET quantidade = ? WHERE ID = ?", (atualizacaoint, idProduto, ))
+        else:
+          cursor.execute("UPDATE produtos SET valorFixo = ? WHERE ID = ?", (atualizacaoint, idProduto))
+  banco.commit()
+  cursor.execute("SELECT * FROM produtos WHERE ID = ?", (idProduto, ))
+  print(cursor.fetchone())      
+
+def excluir():
+
+  IDproduto = input("Digite o ID do produto a ser excluido:\n")
+  try:
+    IDproduto = int(IDproduto)
+  except ValueError:
+    print("Valor inválido\n")
+  cursor.execute("DELETE FROM produtos WHERE ID = ?", (IDproduto, ))
+  banco.commit()
+
+
+processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n[4] - Atualizar campo\n[5] - Excluir campo\n")) 
 
 if processo == 1:
+<<<<<<< HEAD
         
+=======
+        valorProduto = [limite]
+>>>>>>> fb2bf7f14882c5e340a7598a23685f9fe15130a8
         i = 0
         
-        while i < limite:
-            produto = int(input("Digite o ID do produto\n"))
+        print('Digite "FIM" a qualquer momento do programa para finalizar')
+        
+        while i < limite:          
+          
+            produto = (input("Digite o ID do produto\n"))
+            if produto.upper() == "FIM":
+              break
+            
+            try:
+              produto = int(produto)
+            except ValueError:
+              print("Por favor, insira um número válido para o ID do produto.")  
+              continue
             somarCompras(produto)
             somaTotal += valorSoma
             i += 1
-            if produto > limite or produto < 1 :
-              print("Por favor, insira um número válido para o ID do produto.")
-              
-        print(f"O valor total da compra é de: R${somaTotal}")        
-
+        print(f"O valor total da compra é:R${somaTotal}\n") 
+                               
 if processo == 2:
   inserirProduto()
   print("Produto inserido com sucesso!\n")
@@ -77,3 +153,8 @@ if processo == 3:
   consultarPreco() 
   print(f"O valor desse produto é: R${preço}")
 
+if processo == 4:
+  atualizar()
+
+if processo == 5:
+    excluir() 
