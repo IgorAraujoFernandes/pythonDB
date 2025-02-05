@@ -53,18 +53,22 @@ def atualizar():
   print(f"o valor é {idProduto}")
   
   campoAtualizar = (input("\nQual campo você quer atualizar ?\n[1] - Nome [2] - Categoria [3] - Refrigerado [4] - Alcoolico [5] - Quantidade [6] - Valor\n"))
-  #print(f"Campo:", (campoAtualizar, ))
   campoAtualizarINT = int(campoAtualizar) 
   
   if campoAtualizarINT == 3 or campoAtualizarINT == 4:
-    binario = int(input("Escolha o status:\n[1] - Refrigerado    [2] - Não refrigerado\n"))
+    try:
+      binario = int(input("Escolha o status:\n[1] - Refrigerado    [2] - Não refrigerado\n"))
+    except ValueError:
+      print("Numero inválido\n")
     if binario == 2:
       binario = 0
   else:
      atualizacao = input("Qual atualização você deseja fazer?\n")
      if campoAtualizarINT == 5 or campoAtualizarINT == 6:
-      atualizacaoint= int(atualizacao)
-  
+      try:
+        atualizacaoint= int(atualizacao)
+      except ValueError:
+        print("Valor inválido\n")
   if campoAtualizarINT == 1:
     
      cursor.execute("UPDATE produtos SET nomeProduto = ? WHERE ID = ?", (atualizacao, idProduto, ))
@@ -83,7 +87,7 @@ def atualizar():
   if campoAtualizarINT == 3 or campoAtualizarINT == 4:
     
     if campoAtualizarINT == 3:
-     cursor.execute("UPDATE produtos SET refrigerado = ? WHERE ID = ?", (binario, idProduto, ))
+      cursor.execute("UPDATE produtos SET refrigerado = ? WHERE ID = ?", (binario, idProduto, )) 
     else:
       cursor.execute("UPDATE produtos SET alcoolico = ? WHERE ID = ?", (binario, idProduto, ))
   banco.commit()
