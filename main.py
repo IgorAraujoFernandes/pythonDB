@@ -13,7 +13,6 @@ limite = int(maximo[0])
 
 def somarCompras(produto, ):
    
-
     global valorSoma
     cursor.execute('SELECT valorFixo FROM produtos WHERE ID = ?', (produto, ))
     valorProduto = cursor.fetchone()
@@ -40,15 +39,15 @@ def inserirProduto():
 
     cursor.execute('INSERT INTO produtos ("ID", "nomeProduto", "categoria", "refrigerado", "alcoolico", "quantidade", "valorFixo") VALUES(?, ?, ?, ?, ?, ?, ?)',(nvID, nome, categoria, refrigerado, alcoolico, quantidade, valorFixo, ))
     banco.commit()
-    
+  
 def consultarPreco():
 
-  global preço
   IDproduto = int(input("Digite o ID do produto a ser consultado:\n"))
   cursor.execute("SELECT valorFixo FROM produtos WHERE ID = ?", (IDproduto, ))
-  valorFixo = cursor.fetchone()
-  preço = int(valorFixo[0]) 
-  
+  valorFixo = cursor.fetchone() 
+  valorFixo = int(valorFixo[0])
+  return valorFixo
+ 
 def atualizar():
   idProduto = int(input("Digite o ID do produto a ser atualizado:\n"))
   print(f"o valor é {idProduto}")
@@ -117,9 +116,9 @@ def printID():
    print(f"Os IDs sao:\n{listaID}\n")
 
 processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n[4] - Atualizar campo\n[5] - Excluir campo\n")) 
-printID()
-
-
+if processo != 2:
+  printID()
+  
 if processo == 1:
         valorProduto = [limite]
         i = 0
@@ -140,7 +139,8 @@ if processo == 1:
             somarCompras(produto)
             somaTotal += valorSoma
             i += 1
-        print(f"O valor total da compra é:R${somaTotal}\n") 
+        print(f"O valor total da compra é:R${somaTotal}\n")
+        cursor.execute() 
                                
 if processo == 2:
   inserirProduto()
