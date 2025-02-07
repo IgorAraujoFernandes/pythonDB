@@ -119,43 +119,53 @@ def printID():
    listaID = (cursor.fetchall())
    print(f"Os IDs sao:\n{listaID}\n")
 
-processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n[4] - Atualizar campo\n[5] - Excluir campo\n")) 
-if processo != 2:
-  printID()
-  
-if processo == 1:
-        valorProduto = [limite]
-        i = 0
-        
-        print('Digite "FIM" a qualquer momento do programa para finalizar')
-        
-        while i < limite:          
+def main():
+  processo = int(input("Qual e o processo a ser feito ?\n[1] - Somar compras\n[2] - Inserir produto novo\n[3] - Consultar preço do produto\n[4] - Atualizar campo\n[5] - Excluir campo\n")) 
+  if processo != 2:
+    printID()
+    
+  if processo == 1:
+          valorProduto = [limite]
+          i = 0
           
-            produto = (input("Digite o ID do produto\n"))
-            if produto.upper() == "FIM":
-              break
+          print('Digite "FIM" a qualquer momento do programa para finalizar')
+          
+          while i < limite:          
             
-            try:
-              produto = int(produto)
-            except ValueError:
-              print("Por favor, insira um número válido para o ID do produto.")  
-              continue
-            somarCompras(produto)
-            somaTotal += valorSoma
-            i += 1
-        print(f"O valor total da compra é:R${somaTotal}\n")
-        cursor.execute() 
-                               
-if processo == 2:
-  inserirProduto()
-  print("Produto inserido com sucesso!\n")
+              produto = (input("Digite o ID do produto\n"))
+              if produto.upper() == "FIM":
+                break
+              
+              try:
+                produto = int(produto)
+              except ValueError:
+                print("Por favor, insira um número válido para o ID do produto.")  
+                continue
+              somarCompras(produto)
+              somaTotal += valorSoma
+              i += 1
+          print(f"O valor total da compra é:R${somaTotal}\n")
+          cursor.execute() 
+                                
+  if processo == 2:
+    inserirProduto()
+    print("Produto inserido com sucesso!\n")
+    
+  if processo == 3:
+    consultarPreco() 
+    print(f"O valor desse produto é: R${preço}")
+
+  if processo == 4:
+    atualizar()
+
+  if processo == 5:
+      excluir() 
+
+def letreiro():
+  print("---------------------------------------------------------------------------------------------------------------\n")
+  print("███╗░░░███╗███████╗██████╗░░█████╗░░█████╗░██████╗░░█████╗░  ██████╗░██╗░░░██╗████████╗██╗░░██╗░█████╗░███╗░░██\n████╗░████║██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗  ██╔══██╗╚██╗░██╔╝╚══██╔══╝██║░░██║██╔══██╗████╗░██\n██╔████╔██║█████╗░░██████╔╝██║░░╚═╝███████║██║░░██║██║░░██║  ██████╔╝░╚████╔╝░░░░██║░░░███████║██║░░██║██╔██╗██\n██║╚██╔╝██║██╔══╝░░██╔══██╗██║░░██╗██╔══██║██║░░██║██║░░██║  ██╔═══╝░░░╚██╔╝░░░░░██║░░░██╔══██║██║░░██║██║╚████\n██║░╚═╝░██║███████╗██║░░██║╚█████╔╝██║░░██║██████╔╝╚█████╔╝  ██║░░░░░░░░██║░░░░░░██║░░░██║░░██║╚█████╔╝██║░╚███║\n")
   
-if processo == 3:
-  consultarPreco() 
-  print(f"O valor desse produto é: R${preço}")
+  print("---------------------------------------------------------------------------------------------------------------\n")
 
-if processo == 4:
-  atualizar()
-
-if processo == 5:
-    excluir() 
+letreiro()
+main()
