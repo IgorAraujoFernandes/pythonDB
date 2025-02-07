@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 banco = sqlite3.connect('banco.db')
 cursor = banco.cursor()
@@ -43,9 +44,9 @@ def inserirProduto():
 def consultarPreco():
 
   IDproduto = int(input("Digite o ID do produto a ser consultado:\n"))
-  cursor.execute("SELECT valorFixo FROM produtos WHERE ID = ?", (IDproduto, ))
-  valorFixo = cursor.fetchone() 
-  valorFixo = int(valorFixo[0])
+  cursor.execute("SELECT valorFixo FROM produtos WHERE ID = ?", (IDproduto,))
+  novoValorFixo = cursor.fetchone() 
+  valorFixo = int(novoValorFixo)
   return valorFixo
  
 def atualizar():
@@ -160,6 +161,7 @@ def main():
 
   if processo == 5:
       excluir() 
+  
 
 def letreiro():
   print("---------------------------------------------------------------------------------------------------------------\n")
@@ -167,5 +169,6 @@ def letreiro():
   
   print("---------------------------------------------------------------------------------------------------------------\n")
 
+os.system("cls")
 letreiro()
 main()
