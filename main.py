@@ -43,11 +43,13 @@ def inserirProduto():
   
 def consultarPreco():
 
+
+  global valorFixo
   IDproduto = int(input("Digite o ID do produto a ser consultado:\n"))
   cursor.execute("SELECT valorFixo FROM produtos WHERE ID = ?", (IDproduto,))
   novoValorFixo = cursor.fetchone() 
-  valorFixo = int(novoValorFixo)
-  return valorFixo
+  valorFixo = int(novoValorFixo[0])
+  
  
 def atualizar():
   idProduto = int(input("Digite o ID do produto a ser atualizado:\n"))
@@ -154,7 +156,7 @@ def main():
     
   if processo == 3:
     consultarPreco() 
-    print(f"O valor desse produto é: R${preço}")
+    print(f"O valor desse produto é: R${valorFixo}")
 
   if processo == 4:
     atualizar()
