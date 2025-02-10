@@ -128,12 +128,13 @@ def main():
     printID()
     
   if processo == 1:
-          valorProduto = [limite]
-          i = 0
+         global valorProduto
+         valorProduto = [limite]
+         i = 0
+         somaTotal = 0
+         print('Digite "FIM" a qualquer momento do programa para finalizar')
           
-          print('Digite "FIM" a qualquer momento do programa para finalizar')
-          
-          while i < limite:          
+         while i < limite:          
             
               produto = (input("Digite o ID do produto\n"))
               if produto.upper() == "FIM":
@@ -147,8 +148,8 @@ def main():
               somarCompras(produto)
               somaTotal += valorSoma
               i += 1
-          print(f"O valor total da compra é:R${somaTotal}\n")
-          cursor.execute() 
+              print(f"O valor total da compra é:R${somaTotal}\n")
+              cursor.execute() 
                                 
   if processo == 2:
     inserirProduto()
